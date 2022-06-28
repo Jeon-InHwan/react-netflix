@@ -58,12 +58,25 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-size: cover;
   background-position: center center;
   background-image: url(${(props) => props.bgPhoto});
-
   &:first-child {
     transform-origin: center left;
   }
   &:last-child {
     transform-origin: center right;
+  }
+`;
+
+const Info = styled(motion.div)`
+  opacity: 0;
+  padding: 10px;
+  background-color: ${(props) => props.theme.black.lighter};
+  color: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 13px;
   }
 `;
 
@@ -90,7 +103,18 @@ const BoxVariants = {
     y: -50,
     transition: {
       delay: 0.3,
-      duration: 0.4,
+      duration: 0.3,
+      type: "tween",
+    },
+  },
+};
+
+const infoVariants = {
+  hover: {
+    opacity: 1,
+    transition: {
+      delay: 0.3,
+      duration: 0.3,
       type: "tween",
     },
   },
@@ -153,7 +177,11 @@ function Home() {
                       whileHover="hover"
                       initial="normal"
                       transition={{ type: "tween" }}
-                    ></Box>
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
